@@ -7,7 +7,7 @@ pipeline {
     stage("Clone code from GitHub") {
             steps {
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'githubwithpassword', url: 'https://github.com/devopshint/kubernetes_jenkins_pipeline.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'nlakshminath', url: 'https://github.com/nlakshminath/jenkins_proj.git']]])
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
      stage('Build Node JS Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t devopshint/node-app-1.0 .'
+                  sh 'docker build -t nlakshminath/node-app-1.0 .'
                 }
             }
         }
@@ -30,10 +30,10 @@ pipeline {
         stage('Deploy Docker Image to DockerHub') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u devopshint -p ${dockerhubpwd}'
+                 withCredentials([string(credentialsId: 'nlakshminath', variable: 'nlakshminath')]) {
+                    sh 'docker login -u nlakshminath -p ${nlakshminath}'
                  }  
-                 sh 'docker push devopshint/node-app-1.0'
+                 sh 'docker push nlakshminath/node-app-1.0'
                 }
             }
         }
