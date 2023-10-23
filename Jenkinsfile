@@ -21,7 +21,7 @@ pipeline {
      stage('Build Node JS Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t nlakshminath/node-app-1.0 .'
+                  sh 'docker build -t nlakshminath/node-app .'
                 }
             }
         }
@@ -33,16 +33,18 @@ pipeline {
                  withCredentials([string(credentialsId: 'nlakshminath', variable: 'nlakshminath')]) {
                     sh 'docker login -u nlakshminath -p ${nlakshminath}'
                  }  
-                 sh 'docker push nlakshminath/node-app-1.0'
+                 sh 'docker push nlakshminath/node-app'
                 }
             }
         }
          
-     stage('Deploying Node App to Kubernetes') {
+     stage('Deploying Node App helm chart on eks') {
       steps {
         script {
-          kubernetesDeploy(configs: "nodeapp-deployment-service.yml", kubeconfigId: "kubernetes_config")
-        }
+             sh ('aws eks --region us-east-1 update-kubeconfig --name iff-dev-eks-cluster')
+             sh ('kubectl get  ns')
+             sh ('helm install nodeapp ./node-app')
+         }
       }
     }
 
