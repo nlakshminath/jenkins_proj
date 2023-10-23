@@ -4,7 +4,7 @@ pipeline {
     tools {nodejs "node"}
     
     environment {
-        ECR_REPOSITORY_URI = "123456789012.dkr.ecr.us-east-1.amazonaws.com/nlakshminath/node-app"
+        ECR_REPOSITORY_URI = "666008372373.dkr.ecr.us-east-1.amazonaws.com/node-app"
     }
     
     stages {
