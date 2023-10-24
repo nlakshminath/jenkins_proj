@@ -43,8 +43,8 @@ service:
   type: LoadBalancer
   port: 80
   targetPort : 3000
-    protocol : TCP
-        name : node-app
+  protocol : TCP
+  name : node-app
 
 ingress:
   enabled: false
